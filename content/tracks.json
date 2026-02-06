@@ -1,0 +1,43 @@
+[
+  {
+    "id": "paper-lantern",
+    "title": "Paper Lantern",
+    "note": "Written after a winter tour across the prairies.",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "coverImage": "/images/cover-paper-lantern.svg",
+    "duration": 214,
+    "links": {
+      "spotify": "https://open.spotify.com",
+      "apple": "https://music.apple.com",
+      "youtube": "https://youtube.com",
+      "bandcamp": "https://bandcamp.com"
+    }
+  },
+  {
+    "id": "cedar-room",
+    "title": "Cedar Room",
+    "note": "Recorded live in one take with upright piano.",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "coverImage": "/images/cover-cedar-room.svg",
+    "duration": 198,
+    "links": {
+      "spotify": "https://open.spotify.com",
+      "apple": "https://music.apple.com",
+      "youtube": "https://youtube.com"
+    }
+  },
+  {
+    "id": "night-bus-home",
+    "title": "Night Bus Home",
+    "note": "From the upcoming EP.",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    "coverImage": "/images/cover-night-bus-home.svg",
+    "duration": 232,
+    "links": {
+      "spotify": "https://open.spotify.com",
+      "apple": "https://music.apple.com",
+      "youtube": "https://youtube.com",
+      "bandcamp": "https://bandcamp.com"
+    }
+  }
+]

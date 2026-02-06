@@ -1,0 +1,72 @@
+export interface ArtistSocials {
+  instagram?: string
+  tiktok?: string
+  youtube?: string
+  spotify?: string
+  appleMusic?: string
+  bandcamp?: string
+}
+
+export interface PressQuote {
+  quote: string
+  source: string
+}
+
+export interface ArtistContent {
+  name: string
+  wordmarkText: string
+  tagline: string
+  canonicalUrl: string
+  bookingEmail: string
+  newsletterUrl?: string
+  socials: ArtistSocials
+  bio: string[]
+  pressQuotes: PressQuote[]
+}
+
+export interface TrackLinks {
+  spotify?: string
+  apple?: string
+  youtube?: string
+  bandcamp?: string
+}
+
+export interface Track {
+  id: string
+  title: string
+  note?: string
+  audioUrl: string
+  coverImage: string
+  duration: number
+  links: TrackLinks
+}
+
+export interface Show {
+  id: string
+  dateISO: string
+  city: string
+  venue: string
+  ticketUrl?: string
+  status: 'upcoming' | 'past'
+}
+
+export interface MediaVideo {
+  id: string
+  type: 'youtube' | 'file'
+  title: string
+  url: string
+  poster?: string
+}
+
+export interface MediaPhoto {
+  id: string
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
+export interface MediaContent {
+  videos: MediaVideo[]
+  photos: MediaPhoto[]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Robbie Lune",
+  "wordmarkText": "Robbie Lune",
+  "tagline": "Intimate folk-pop songs for quiet rooms and long drives.",
+  "canonicalUrl": "https://example.com",
+  "bookingEmail": "booking@robbielune.com",
+  "newsletterUrl": "https://example.com/newsletter",
+  "socials": {
+    "instagram": "https://instagram.com/robbielune",
+    "tiktok": "https://tiktok.com/@robbielune",
+    "youtube": "https://youtube.com/@robbielune",
+    "spotify": "https://open.spotify.com",
+    "appleMusic": "https://music.apple.com",
+    "bandcamp": "https://robbielune.bandcamp.com"
+  },
+  "bio": [
+    "Robbie Lune writes soft-edged folk-pop songs that sit between diary entries and late-night road playlists. Her voice stays close and conversational, while layered guitars and tape-like textures keep the production warm.",
+    "Raised between small-town community halls and city rehearsal spaces, Robbie built her live set to feel personal no matter the room size. Acoustic intimacy is always the anchor, even when the arrangements open up.",
+    "The current chapter focuses on stripped-back live sessions, a run of regional headline dates, and a new EP built around stories of home, distance, and return."
+  ],
+  "pressQuotes": [
+    {
+      "quote": "A voice that feels handwritten.",
+      "source": "Northern Sessions"
+    },
+    {
+      "quote": "Warm, cinematic folk-pop with real emotional detail.",
+      "source": "Paper Lantern"
+    }
+  ]
+}

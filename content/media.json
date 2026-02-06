@@ -1,0 +1,48 @@
+{
+  "videos": [
+    {
+      "id": "tiny-desk-style",
+      "type": "youtube",
+      "title": "Live Session: Paper Lantern",
+      "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+      "poster": "/video/hero-poster.jpg"
+    },
+    {
+      "id": "studio-cut",
+      "type": "file",
+      "title": "Studio Performance Clip",
+      "url": "/video/hero-loop.mp4",
+      "poster": "/video/hero-poster.jpg"
+    }
+  ],
+  "photos": [
+    {
+      "id": "photo-1",
+      "src": "/images/profile.jpg",
+      "alt": "Artist portrait close-up",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "photo-2",
+      "src": "/images/profile-2.jpg",
+      "alt": "Artist holding a mirror ball",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "photo-3",
+      "src": "/images/profile-3.jpg",
+      "alt": "Artist outdoor editorial portrait",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "photo-4",
+      "src": "/images/photo-4.svg",
+      "alt": "Crowd moment from a small theatre show",
+      "width": 1200,
+      "height": 1200
+    }
+  ]
+}

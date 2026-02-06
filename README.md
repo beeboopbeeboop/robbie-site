@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Robbie Site
 
-## Getting Started
+Mobile-first musician website built with Next.js App Router, TypeScript, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run start
+```
 
-## Learn More
+## Editable content
 
-To learn more about Next.js, take a look at the following resources:
+All editable site content lives in `/content`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/Users/jon/Documents/robbie-site/content/artist.json`
+- `/Users/jon/Documents/robbie-site/content/tracks.json`
+- `/Users/jon/Documents/robbie-site/content/shows.json`
+- `/Users/jon/Documents/robbie-site/content/media.json`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Media guidance
 
-## Deploy on Vercel
+- Hero loop video: `/Users/jon/Documents/robbie-site/public/video/hero-loop.mp4`
+- Hero fallback poster: `/Users/jon/Documents/robbie-site/public/video/hero-poster.jpg`
+- Track covers and gallery photos: `/Users/jon/Documents/robbie-site/public/images`
+- Keep hero video short (6-10s), muted, and compressed for mobile.
+- Prefer WebP/AVIF for image assets when replacing placeholders.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## SEO included
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Metadata and OpenGraph in layout
+- `robots.txt` via `/app/robots.ts`
+- `sitemap.xml` via `/app/sitemap.ts`
+- Schema.org JSON-LD for `MusicGroup`, `MusicRecording`, and `Event`
+
+## Contact form
+
+Form posts to `/api/contact` with:
+
+- Honeypot (`website`) spam guard
+- Basic payload validation
+- Server logging placeholder for email integration
+
+Integrate your provider later by replacing the `console.log` inside `/Users/jon/Documents/robbie-site/app/api/contact/route.ts`.

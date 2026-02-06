@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0f0e0d;
+  --bg-soft: #171513;
+  --fg: #f4eee6;
+  --muted: #bbaea1;
+  --accent: #df9664;
+  --accent-2: #8db0a2;
+  --accent-ink: #2e1d13;
+  --highlight: #2a211a;
+  --border: #2e2823;
+  --card: #181614;
+  --card-2: #201c18;
+  --ink: #fef7ef;
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --content-max: 1280px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: var(--fg);
+  background:
+    radial-gradient(ellipse 900px 500px at 75% 0%, rgba(223, 150, 100, 0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 400px at 0% 60%, rgba(141, 176, 162, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 600px at 50% 100%, rgba(223, 150, 100, 0.05) 0%, transparent 70%),
+    linear-gradient(180deg, #12100f 0%, #0f0e0d 40%, #0b0a09 100%);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), Impact, sans-serif;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+main,
+footer,
+header {
+  position: relative;
+  z-index: 2;
+}
+
+a,
+button,
+input,
+textarea {
+  outline-color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  background: var(--ink);
+  color: #17120e;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* --- Layout --- */
+
+.section-shell {
+  padding: 2.5rem 1.5rem;
+}
+
+.section-card {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+/* --- Typography --- */
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kicker::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.title-block {
+  font-size: clamp(2rem, 6vw, 5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.title-hero {
+  font-size: clamp(3.5rem, 15vw, 11rem);
+  line-height: 0.85;
+  text-transform: uppercase;
+  font-family: var(--font-display), Impact, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* --- Buttons --- */
+
+.pill-btn {
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  padding: 0.68rem 1.12rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.pill-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 28px rgba(223, 150, 100, 0.22);
+}
+
+.btn-ghost {
+  background: rgba(19, 16, 14, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 220ms ease, color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+/* --- Utilities --- */
+
+.glass {
+  background: rgba(19, 16, 14, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent 80%);
+}
+
+/* --- Marquee --- */
+
+.marquee-band {
+  overflow: hidden;
+  white-space: nowrap;
+  border-block: 1px solid var(--border);
+  background: var(--bg);
+  position: relative;
+}
+
+.marquee-band span {
+  display: inline-block;
+  padding: 1rem 0;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 60%, var(--fg));
+}
+
+.marquee-band .marquee-track {
+  display: inline-flex;
+  gap: 2rem;
+  padding-right: 2rem;
+  will-change: transform;
+  animation: marquee-left 20s linear infinite;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Responsive --- */
+
+@media (min-width: 768px) {
+  .section-shell {
+    padding: 3.5rem 2rem;
+  }
+
+  .vinyl-out {
+    right: -50%;
+  }
+}
+
+/* --- Vinyl Record --- */
+
+.vinyl-record {
+  transition: right 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.vinyl-in {
+  right: -10%;
+  opacity: 0.4;
+}
+
+.vinyl-out {
+  right: -45%;
+  opacity: 1;
+}
+
+.vinyl-spinning {
+  animation: vinyl-spin 3s linear infinite;
+}
+
+@keyframes vinyl-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Playing Bars --- */
+
+.playing-bar {
+  animation: playing-bounce 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes playing-bounce {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+/* --- Cover Flow Scroll --- */
+
+.coverflow-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.coverflow-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Accessibility --- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-band .marquee-track {
+    animation: none;
+  }
 }
