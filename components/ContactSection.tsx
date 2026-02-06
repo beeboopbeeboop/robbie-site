@@ -15,45 +15,23 @@ const socialLabels: Record<string, string> = {
 }
 
 export function ContactSection({ artist }: { artist: ArtistContent }) {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [error, setError] = useState('')
+  const [status, setStatus] = useState<'idle' | 'success'>('idle')
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setStatus('loading')
-    setError('')
-
     const form = event.currentTarget
     const formData = new FormData(form)
 
-    const payload = {
-      name: String(formData.get('name') || ''),
-      email: String(formData.get('email') || ''),
-      message: String(formData.get('message') || ''),
-      website: String(formData.get('website') || ''),
-    }
+    const name = String(formData.get('name') || '')
+    const email = String(formData.get('email') || '')
+    const message = String(formData.get('message') || '')
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+    const subject = encodeURIComponent(`Inquiry from ${name}`)
+    const body = encodeURIComponent(`From: ${name} (${email})\n\n${message}`)
+    window.location.href = `mailto:${artist.bookingEmail}?subject=${subject}&body=${body}`
 
-      const body = (await response.json()) as { ok: boolean; error?: string }
-
-      if (!response.ok || !body.ok) {
-        setStatus('error')
-        setError(body.error || 'Something went wrong.')
-        return
-      }
-
-      setStatus('success')
-      form.reset()
-    } catch {
-      setStatus('error')
-      setError('Unable to send right now. Please use email.')
-    }
+    setStatus('success')
+    form.reset()
   }
 
   return (
@@ -135,16 +113,12 @@ export function ContactSection({ artist }: { artist: ArtistContent }) {
               <button
                 type="submit"
                 className="pill-btn mt-5 w-full !bg-[var(--accent)] !text-[#1f130d]"
-                disabled={status === 'loading'}
               >
-                {status === 'loading' ? 'Sending...' : 'Send Message'}
+                Send Message
               </button>
 
               {status === 'success' && (
-                <p className="mt-3 text-center text-sm text-green-400">Thanks. We&rsquo;ll reply shortly.</p>
-              )}
-              {status === 'error' && (
-                <p className="mt-3 text-center text-sm text-red-400">{error}</p>
+                <p className="mt-3 text-center text-sm text-green-400">Opening your email client&hellip;</p>
               )}
             </form>
           </motion.div>

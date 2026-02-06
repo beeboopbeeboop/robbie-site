@@ -113,7 +113,7 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
                   className="relative z-10 h-[240px] w-[240px] cursor-pointer overflow-hidden rounded-2xl border border-[var(--border)] shadow-2xl transition-transform duration-300 hover:scale-[1.03] md:h-[320px] md:w-[320px]"
                 >
                   <Image
-                    src="/images/album-cover.png"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/album-cover.png`}
                     alt={`${featuredTrack.title} album art`}
                     fill
                     className="object-cover"

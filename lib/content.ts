@@ -4,6 +4,12 @@ import path from 'node:path'
 import type { ArtistContent, MediaContent, MediaPhoto, MediaVideo, Show, Track } from '@/lib/types'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
+function prefixAssetPath(p: string): string {
+  if (!p || !p.startsWith('/')) return p
+  return `${BASE_PATH}${p}`
+}
 
 function readJsonFile(fileName: string): unknown {
   const filePath = path.join(CONTENT_DIR, fileName)
@@ -90,7 +96,7 @@ export function getTracks(): Track[] {
         title: asString(track.title),
         note: asString(track.note),
         audioUrl: asString(track.audioUrl),
-        coverImage: asString(track.coverImage),
+        coverImage: prefixAssetPath(asString(track.coverImage)),
         duration: asNumber(track.duration),
         links: {
           spotify: asString(linksPayload.spotify),
@@ -133,8 +139,8 @@ export function getMediaContent(): MediaContent {
           id: asString(video.id),
           type: video.type === 'youtube' ? 'youtube' : 'file',
           title: asString(video.title),
-          url: asString(video.url),
-          poster: asString(video.poster),
+          url: prefixAssetPath(asString(video.url)),
+          poster: prefixAssetPath(asString(video.poster)),
         }))
         .filter((video) => video.id && video.title && video.url)
     : []
@@ -144,7 +150,7 @@ export function getMediaContent(): MediaContent {
         .filter(isRecord)
         .map<MediaPhoto>((photo) => ({
           id: asString(photo.id),
-          src: asString(photo.src),
+          src: prefixAssetPath(asString(photo.src)),
           alt: asString(photo.alt),
           width: asNumber(photo.width, 1200),
           height: asNumber(photo.height, 900),

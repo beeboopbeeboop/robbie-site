@@ -54,7 +54,7 @@ export function AboutSection({ artist }: { artist: ArtistContent }) {
             className="group relative block w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)]"
           >
             <video
-              src="/video/placeholder-video.mp4"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/video/placeholder-video.mp4`}
               autoPlay
               muted
               loop
@@ -104,7 +104,7 @@ export function AboutSection({ artist }: { artist: ArtistContent }) {
               </button>
               <video
                 ref={modalVideoRef}
-                src="/video/placeholder-video.mp4"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/video/placeholder-video.mp4`}
                 autoPlay
                 controls
                 playsInline

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beeboopbeeboop.github.io/robbie-site/sitemap.xml
