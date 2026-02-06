@@ -199,12 +199,6 @@ textarea:focus-visible {
   transform: translateY(-1px);
 }
 
-.site-header {
-  position: sticky;
-  inset-inline: 0;
-  top: 0.75rem;
-}
-
 .header-fade {
   opacity: 0;
   transform: translateY(-8px);
@@ -233,6 +227,12 @@ textarea:focus-visible {
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+}
+
+.header-glass {
+  background: rgba(19, 16, 14, 0.46);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 .rule {

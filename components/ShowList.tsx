@@ -106,7 +106,7 @@ export function ShowList({ shows }: { shows: Show[] }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-xl"
               onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
             >
               <motion.div

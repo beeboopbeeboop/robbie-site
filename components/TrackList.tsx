@@ -26,6 +26,14 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
     setActiveIndex(index)
   }
 
+  function handlePrev() {
+    setActiveIndex((prev) => (prev - 1 + tracks.length) % tracks.length)
+  }
+
+  function handleNext() {
+    setActiveIndex((prev) => (prev + 1) % tracks.length)
+  }
+
   function handlePlay() {
     if (!activeTrack) return
     if (isCurrent && isPlaying) {
@@ -151,22 +159,29 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
               </motion.div>
             </AnimatePresence>
 
-            {/* Track selector pills */}
-            <div className="mt-8 flex justify-center gap-2 md:justify-start">
-              {tracks.map((track, i) => (
-                <button
-                  key={track.id}
-                  type="button"
-                  onClick={() => handleSelect(i)}
-                  className={`rounded-full px-4 py-2 text-sm transition ${
-                    i === activeIndex
-                      ? 'bg-white/12 text-[var(--fg)]'
-                      : 'border border-[var(--border)] text-[var(--muted)] hover:text-[var(--fg)]'
-                  }`}
-                >
-                  {track.title}
-                </button>
-              ))}
+            {/* Track arrows */}
+            <div className="mt-8 flex items-center justify-center gap-3 md:justify-start">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous track"
+                className="header-btn flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition hover:border-[var(--accent)]/50 hover:text-[var(--fg)]"
+              >
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12.5 4.5L7 10l5.5 5.5" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next track"
+                className="header-btn flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition hover:border-[var(--accent)]/50 hover:text-[var(--fg)]"
+              >
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7.5 4.5L13 10l-5.5 5.5" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

@@ -35,8 +35,8 @@ export function Header({ artistName }: { artistName: string }) {
   }, [])
 
   return (
-    <header className="site-header header-fade z-50 px-3 transition-all duration-300 md:px-5">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between rounded-2xl px-4 glass md:px-6">
+    <header className="header-fade fixed inset-x-0 top-3 z-50 px-3 transition-all duration-300 md:px-5">
+      <div className="header-glass mx-auto flex h-14 max-w-7xl items-center justify-between rounded-2xl px-4 glass md:px-6">
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

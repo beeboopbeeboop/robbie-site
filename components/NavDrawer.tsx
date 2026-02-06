@@ -50,7 +50,7 @@ export function NavDrawer({ open, onClose, links, activeSection }: NavDrawerProp
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black/70 backdrop-blur-xl"
+          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black/65 backdrop-blur-xl"
           onClick={onClose}
         >
           {/* Close button */}
