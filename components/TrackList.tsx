@@ -94,13 +94,13 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
                   {/* Active overlay */}
                   {isActive && (
                     <div
-                      className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 hover:bg-black/30"
+                      className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-200 hover:bg-black/30"
                       onClick={(e) => {
                         e.stopPropagation()
                         handlePlay()
                       }}
                     >
-                      <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 ${isPlaying ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100'}`}>
+                      <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 ${isPlaying ? 'scale-100 opacity-100' : 'scale-100 opacity-70 group-hover:opacity-100'}`}>
                         {isPlaying ? (
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <rect x="5" y="3" width="4" height="14" rx="1" />
@@ -165,7 +165,7 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous track"
-                className="header-btn flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition hover:border-[var(--accent)]/50 hover:text-[var(--fg)]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-[rgba(19,16,14,0.58)] text-[var(--muted)] backdrop-blur-md transition hover:-translate-y-px hover:border-[var(--accent)]/45 hover:text-[var(--fg)]"
               >
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12.5 4.5L7 10l5.5 5.5" />
@@ -176,7 +176,7 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
                 type="button"
                 onClick={handleNext}
                 aria-label="Next track"
-                className="header-btn flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition hover:border-[var(--accent)]/50 hover:text-[var(--fg)]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-[rgba(19,16,14,0.58)] text-[var(--muted)] backdrop-blur-md transition hover:-translate-y-px hover:border-[var(--accent)]/45 hover:text-[var(--fg)]"
               >
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M7.5 4.5L13 10l-5.5 5.5" />

@@ -26,7 +26,7 @@ export default function HomePage() {
           <Hero artist={artist} featuredTrack={tracks[0]} />
         </ScrollFade>
 
-        <ScrollFade mode="out">
+        <ScrollFade mode="out" minScale={1} yOffset={0}>
           <div className="marquee-band">
             <div className="marquee-track">
               <span>

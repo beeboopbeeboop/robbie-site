@@ -35,8 +35,9 @@ export function Header({ artistName }: { artistName: string }) {
   }, [])
 
   return (
-    <header className="header-fade fixed inset-x-0 top-3 z-50 px-3 transition-all duration-300 md:px-5">
-      <div className="header-glass mx-auto flex h-14 max-w-7xl items-center justify-between rounded-2xl px-4 glass md:px-6">
+    <header className="fixed inset-x-0 top-3 z-50 px-3 transition-all duration-300 md:px-5">
+      <div className="header-glass mx-auto h-14 max-w-7xl rounded-2xl">
+        <div className="header-fade flex h-full items-center justify-between px-4 md:px-6">
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -73,6 +74,7 @@ export function Header({ artistName }: { artistName: string }) {
             </a>
           ))}
         </nav>
+        </div>
       </div>
 
       <NavDrawer open={open} onClose={() => setOpen(false)} links={links} activeSection={activeSection} />
