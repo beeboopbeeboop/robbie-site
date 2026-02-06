@@ -32,6 +32,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
@@ -69,8 +70,7 @@ p {
 }
 
 main,
-footer,
-header {
+footer {
   position: relative;
   z-index: 2;
 }
@@ -186,6 +186,46 @@ textarea:focus-visible {
   box-shadow: none;
 }
 
+/* --- Header --- */
+
+.header-btn {
+  border: 0;
+  background: transparent;
+  transition: color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.site-header {
+  position: sticky;
+  inset-inline: 0;
+  top: 0.75rem;
+}
+
+.header-fade {
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: header-fade 650ms ease 120ms forwards;
+}
+
+@keyframes header-fade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-fade {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 /* --- Utilities --- */
 
 .glass {
@@ -208,6 +248,7 @@ textarea:focus-visible {
   border-block: 1px solid var(--border);
   background: var(--bg);
   position: relative;
+  animation: marquee-fade-in 700ms ease 180ms both;
 }
 
 .marquee-band span {
@@ -235,6 +276,17 @@ textarea:focus-visible {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

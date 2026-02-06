@@ -45,7 +45,7 @@ export default function HomePage() {
         <ScrollFade mode="out">
           <TrackList tracks={tracks} />
         </ScrollFade>
-        <ScrollFade mode="out">
+        <ScrollFade mode="in">
           <ShowList shows={shows} />
         </ScrollFade>
         <ScrollFade mode="in">

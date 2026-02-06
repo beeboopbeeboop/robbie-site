@@ -35,21 +35,19 @@ export function Header({ artistName }: { artistName: string }) {
   }, [])
 
   return (
-    <header
-      className="fixed inset-x-0 top-3 z-50 px-3 transition-all duration-300 md:px-5"
-    >
+    <header className="site-header header-fade z-50 px-3 transition-all duration-300 md:px-5">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between rounded-2xl px-4 glass md:px-6">
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="font-display text-lg uppercase tracking-wide text-[var(--fg)]"
+          className="header-btn rounded-full px-3 py-2 font-display text-lg uppercase tracking-wide text-[var(--fg)]"
         >
           {artistName}
         </button>
 
         <button
           type="button"
-          className="flex flex-col items-center justify-center gap-1.5 rounded-full p-2 md:hidden"
+          className="header-btn flex flex-col items-center justify-center gap-1.5 rounded-full p-2 md:hidden"
           onClick={() => setOpen(true)}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -65,8 +63,10 @@ export function Header({ artistName }: { artistName: string }) {
             <a
               key={link.id}
               href={`#${link.id}`}
-              className={`rounded-full px-3 py-2 text-sm transition ${
-                activeSection === link.id ? 'bg-white/12 text-[var(--fg)]' : 'text-[var(--muted)] hover:text-[var(--fg)]'
+              className={`header-btn rounded-full px-3 py-2 text-sm transition ${
+                activeSection === link.id
+                  ? 'bg-white/12 text-[var(--fg)]'
+                  : 'text-[var(--muted)] hover:text-[var(--fg)]'
               }`}
             >
               {link.label}

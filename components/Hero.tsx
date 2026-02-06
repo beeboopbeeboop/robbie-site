@@ -69,14 +69,14 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
   }
 
   return (
-    <section id="home" className="relative overflow-hidden pb-8 pt-24 md:pb-14 md:pt-28">
+    <section id="home" className="relative pb-8 pt-24 md:pb-14 md:pt-28">
       {/* Ambient glows */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <div className="absolute left-[50%] top-[10%] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[var(--accent)] opacity-[0.05] blur-[150px]" />
         <div className="absolute bottom-[20%] right-[10%] h-[300px] w-[400px] rounded-full bg-[var(--accent-2)] opacity-[0.04] blur-[100px]" />
       </div>
 
-      <div className="relative z-10 mx-auto px-6 md:px-8" style={{ maxWidth: 'var(--content-max)' }}>
+      <div className="relative z-10 mx-auto px-6 md:px-8" style={{ maxWidth: '1600px' }}>
         {/* Artist name — single line */}
         <motion.div className="text-center" {...fade(0.1)}>
           <h1 className="title-hero mx-auto">
@@ -87,7 +87,7 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
 
         {/* Album feature — two column */}
         {featuredTrack && (
-          <motion.div className="mt-10 flex flex-col items-center gap-8 md:mt-14 md:flex-row md:justify-center md:gap-16" {...fade(0.3)}>
+          <motion.div className="mt-10 flex flex-col items-center gap-8 md:mt-14 md:flex-row-reverse md:justify-center md:gap-16 lg:gap-24" {...fade(0.3)}>
             {/* Album + Vinyl container */}
             <div className="group relative shrink-0">
               <div className="relative flex items-center justify-center">
@@ -182,24 +182,44 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
               </div>
 
               {/* Social media icons */}
-              <div className="mt-6 flex justify-center gap-3 md:justify-start">
-                {Object.entries(artist.socials).map(([key, url]) => {
+              <motion.div
+                className="mt-6 flex justify-center gap-3 md:justify-start"
+                {...(reduceMotion
+                  ? {}
+                  : {
+                      initial: { opacity: 0, y: 10 },
+                      animate: { opacity: 1, y: 0 },
+                      transition: { duration: 0.45, delay: 0.58, ease: [0.16, 1, 0.3, 1] as const },
+                    })}
+              >
+                {Object.entries(artist.socials).map(([key, url], idx) => {
                   const social = socialIcons[key]
                   if (!url || !social) return null
                   return (
-                    <a
+                    <motion.a
                       key={key}
                       href={url}
                       target="_blank"
                       rel="noreferrer"
                       aria-label={social.label}
                       className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition-all duration-200 hover:scale-110 hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+                      {...(reduceMotion
+                        ? {}
+                        : {
+                            initial: { opacity: 0, y: 10, scale: 0.95 },
+                            animate: { opacity: 1, y: 0, scale: 1 },
+                            transition: {
+                              duration: 0.36,
+                              delay: 0.64 + idx * 0.08,
+                              ease: [0.16, 1, 0.3, 1] as const,
+                            },
+                          })}
                     >
                       {social.icon}
-                    </a>
+                    </motion.a>
                   )
                 })}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}

@@ -48,22 +48,24 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
             {tracks.map((track, i) => {
               const isActive = i === activeIndex
               const offset = i - activeIndex
+              const depth = Math.abs(offset)
 
-              // Cascade: items behind fan out diagonally
-              const baseX = offset * 40
-              const baseY = offset * -12
-              const rotation = offset * 5
-              const scale = isActive ? 1 : 0.85 - Math.abs(offset) * 0.04
-              const zIndex = tracks.length - Math.abs(offset)
-              const opacity = isActive ? 1 : 0.6 - Math.abs(offset) * 0.15
+              // Keep a clean, mirrored fan in both directions when scrubbing between tracks.
+              const baseX = offset * 56
+              const baseY = depth * 7
+              const rotation = offset * 4.2
+              const scale = isActive ? 1 : Math.max(0.78, 0.9 - depth * 0.07)
+              const zIndex = tracks.length - depth
+              const opacity = isActive ? 1 : Math.max(0.3, 0.7 - depth * 0.16)
+              const transformOrigin = offset >= 0 ? 'bottom left' : 'bottom right'
 
               return (
                 <motion.button
                   key={track.id}
                   type="button"
                   onClick={() => handleSelect(i)}
-                  className="absolute left-1/2 top-1/2 aspect-square w-[240px] origin-bottom-left cursor-pointer overflow-hidden rounded-2xl shadow-2xl md:w-[300px]"
-                  style={{ zIndex }}
+                  className="group absolute left-1/2 top-1/2 aspect-square w-[240px] cursor-pointer overflow-hidden rounded-2xl shadow-2xl md:w-[300px]"
+                  style={{ zIndex, transformOrigin }}
                   animate={{
                     x: `calc(-50% + ${baseX}px)`,
                     y: `calc(-50% + ${baseY}px)`,
@@ -131,17 +133,7 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
                   {activeTrack.title}
                 </h3>
 
-                <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
-                  <button
-                    type="button"
-                    onClick={handlePlay}
-                    className="pill-btn !border-[var(--accent)] !bg-[var(--accent)] !text-[#1f130d]"
-                  >
-                    {isPlaying ? 'Pause' : 'Play'}
-                  </button>
-                </div>
-
-                <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
+                <div className="mt-6 flex flex-wrap justify-center gap-2 md:justify-start">
                   {Object.entries(activeTrack.links).map(([key, value]) =>
                     value ? (
                       <a

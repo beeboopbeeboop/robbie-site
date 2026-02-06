@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Section, itemVariants } from '@/components/Section'
 import type { Show } from '@/lib/types'
@@ -23,6 +24,9 @@ export function ShowList({ shows }: { shows: Show[] }) {
   const [newsletterOpen, setNewsletterOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
 
   function handleSubscribe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -93,79 +97,82 @@ export function ShowList({ shows }: { shows: Show[] }) {
         </motion.div>
       )}
 
-      {/* Newsletter Modal */}
-      <AnimatePresence>
-        {newsletterOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
-            onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
-          >
+      {/* Newsletter Modal — portaled to body to escape Section's stacking context */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {newsletterOpen && (
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
-              className="relative w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
+              onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
             >
-              {/* Close button */}
-              <button
-                type="button"
-                onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
-                className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition hover:text-[var(--fg)]"
-                aria-label="Close"
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
+                className="relative w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M4 4L14 14M14 4L4 14" />
-                </svg>
-              </button>
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
+                  className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition hover:text-[var(--fg)]"
+                  aria-label="Close"
+                >
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M4 4L14 14M14 4L4 14" />
+                  </svg>
+                </button>
 
-              {subscribed ? (
-                <div className="text-center">
-                  <h3 className="font-display text-2xl uppercase">Thank You</h3>
-                  <p className="mt-3 text-sm text-[var(--muted)]">
-                    You&rsquo;ll be the first to know about upcoming shows and releases.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
-                    className="pill-btn mt-6 !bg-[var(--accent)] !text-[#1f130d]"
-                  >
-                    Done
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <h3 className="font-display text-2xl uppercase">Stay Updated</h3>
-                  <p className="mt-2 text-sm text-[var(--muted)]">
-                    Get notified about upcoming shows and new releases.
-                  </p>
-                  <form onSubmit={handleSubscribe} className="mt-6">
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Your email"
-                      className="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--fg)] outline-none transition focus:border-[var(--accent)]"
-                    />
+                {subscribed ? (
+                  <div className="text-center">
+                    <h3 className="font-display text-2xl uppercase">Thank You</h3>
+                    <p className="mt-3 text-sm text-[var(--muted)]">
+                      You&rsquo;ll be the first to know about upcoming shows and releases.
+                    </p>
                     <button
-                      type="submit"
-                      className="pill-btn mt-4 w-full !bg-[var(--accent)] !text-[#1f130d]"
+                      type="button"
+                      onClick={() => { setNewsletterOpen(false); setSubscribed(false) }}
+                      className="pill-btn mt-6 !bg-[var(--accent)] !text-[#1f130d]"
                     >
-                      Subscribe
+                      Done
                     </button>
-                  </form>
-                </>
-              )}
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="font-display text-2xl uppercase">Stay Updated</h3>
+                    <p className="mt-2 text-sm text-[var(--muted)]">
+                      Get notified about upcoming shows and new releases.
+                    </p>
+                    <form onSubmit={handleSubscribe} className="mt-6">
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Your email"
+                        className="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-sm text-[var(--fg)] outline-none transition focus:border-[var(--accent)]"
+                      />
+                      <button
+                        type="submit"
+                        className="pill-btn mt-4 w-full !bg-[var(--accent)] !text-[#1f130d]"
+                      >
+                        Subscribe
+                      </button>
+                    </form>
+                  </>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </Section>
   )
 }

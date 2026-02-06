@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Section, itemVariants } from '@/components/Section'
 import type { ArtistContent } from '@/lib/types'
@@ -8,6 +9,9 @@ import type { ArtistContent } from '@/lib/types'
 export function AboutSection({ artist }: { artist: ArtistContent }) {
   const [videoOpen, setVideoOpen] = useState(false)
   const modalVideoRef = useRef<HTMLVideoElement>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
 
   function openVideo() {
     setVideoOpen(true)
@@ -72,48 +76,51 @@ export function AboutSection({ artist }: { artist: ArtistContent }) {
         </motion.div>
       </div>
 
-      {/* Video Modal */}
-      <AnimatePresence>
-        {videoOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
-            onClick={closeVideo}
-          >
+      {/* Video Modal — portaled to body to escape Section's stacking context */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {videoOpen && (
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
-              className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
+              onClick={closeVideo}
             >
-              {/* Close button */}
-              <button
-                type="button"
-                onClick={closeVideo}
-                className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-black/80"
-                aria-label="Close video"
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
+                className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M4 4L14 14M14 4L4 14" />
-                </svg>
-              </button>
-              <video
-                ref={modalVideoRef}
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/video/placeholder-video.mp4`}
-                autoPlay
-                controls
-                playsInline
-                className="aspect-video w-full"
-              />
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={closeVideo}
+                  className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-black/80"
+                  aria-label="Close video"
+                >
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M4 4L14 14M14 4L4 14" />
+                  </svg>
+                </button>
+                <video
+                  ref={modalVideoRef}
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/video/placeholder-video.mp4`}
+                  autoPlay
+                  controls
+                  playsInline
+                  className="aspect-video w-full"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </Section>
   )
 }
