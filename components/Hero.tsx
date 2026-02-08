@@ -95,11 +95,20 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
                 <div
                   className={`vinyl-record absolute h-[240px] w-[240px] rounded-full md:h-[320px] md:w-[320px] ${isPlaying ? 'vinyl-out vinyl-spinning' : 'vinyl-in'}`}
                 >
+                  {/* Base vinyl disc */}
                   <div className="absolute inset-0 rounded-full bg-[#1c1917] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" />
-                  <div className="absolute inset-[12%] rounded-full border border-[rgba(255,255,255,0.06)]" />
-                  <div className="absolute inset-[20%] rounded-full border border-[rgba(255,255,255,0.04)]" />
-                  <div className="absolute inset-[28%] rounded-full border border-[rgba(255,255,255,0.05)]" />
-                  <div className="absolute inset-[36%] rounded-full border border-[rgba(255,255,255,0.03)]" />
+                  
+                  {/* Vinyl grooves - always visible */}
+                  <div className="absolute inset-[12%] rounded-full border border-[rgba(255,255,255,0.07)]" />
+                  <div className="absolute inset-[20%] rounded-full border border-[rgba(255,255,255,0.05)]" />
+                  <div className="absolute inset-[28%] rounded-full border border-[rgba(255,255,255,0.06)]" />
+                  <div className="absolute inset-[36%] rounded-full border border-[rgba(255,255,255,0.04)]" />
+                  
+                  {/* Light reflection overlay - rotates independently when playing */}
+                  {isPlaying && (
+                    <div className="vinyl-light-reflection absolute inset-0 rounded-full" />
+                  )}
+                  
                   {/* Label */}
                   <div className="absolute inset-[38%] rounded-full bg-gradient-to-br from-[var(--accent)] to-[#8b5e3c] opacity-60" />
                   <div className="absolute inset-[42%] rounded-full bg-gradient-to-br from-[var(--accent)]/40 to-[#6b4226]/30" />
@@ -116,11 +125,12 @@ export function Hero({ artist, featuredTrack }: { artist: ArtistContent; feature
                     src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/album-cover.png`}
                     alt={`${featuredTrack.title} album art`}
                     fill
-                    className="object-cover"
+                    className="img-blur-load object-cover"
                     sizes="320px"
+                    onLoad={(e) => e.currentTarget.classList.add('loaded')}
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-200 hover:bg-black/30">
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 ${isPlaying ? 'scale-100 opacity-100' : 'scale-100 opacity-70 group-hover:opacity-100'}`}>
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 hover:scale-110">
                       {isPlaying ? (
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                           <rect x="5" y="3" width="4" height="14" rx="1" />

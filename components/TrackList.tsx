@@ -58,49 +58,49 @@ export function TrackList({ tracks }: { tracks: Track[] }) {
               const offset = i - activeIndex
               const depth = Math.abs(offset)
 
-              // Keep a clean, mirrored fan in both directions when scrubbing between tracks.
-              const baseX = offset * 56
-              const baseY = depth * 7
-              const rotation = offset * 4.2
-              const scale = isActive ? 1 : Math.max(0.78, 0.9 - depth * 0.07)
+              // Smooth, even cascade fan effect - full opacity, depth via shadow only
+              const baseX = offset * 48
+              const baseY = depth * 6
+              const rotation = offset * 3.5
+              const scale = isActive ? 1 : Math.max(0.85, 0.94 - depth * 0.04)
               const zIndex = tracks.length - depth
-              const opacity = isActive ? 1 : Math.max(0.3, 0.7 - depth * 0.16)
-              const transformOrigin = offset >= 0 ? 'bottom left' : 'bottom right'
+              const transformOrigin = 'center center'
+              const shadowIntensity = isActive ? '0 25px 50px -12px rgba(0,0,0,0.5)' : `0 ${12 + depth * 4}px ${24 + depth * 6}px -8px rgba(0,0,0,0.4)`
 
               return (
                 <motion.button
                   key={track.id}
                   type="button"
                   onClick={() => handleSelect(i)}
-                  className="group absolute left-1/2 top-1/2 aspect-square w-[240px] cursor-pointer overflow-hidden rounded-2xl shadow-2xl md:w-[300px]"
-                  style={{ zIndex, transformOrigin }}
+                  className="group absolute left-1/2 top-1/2 aspect-square w-[240px] cursor-pointer overflow-hidden rounded-2xl md:w-[300px]"
+                  style={{ zIndex, transformOrigin, boxShadow: shadowIntensity }}
                   animate={{
                     x: `calc(-50% + ${baseX}px)`,
                     y: `calc(-50% + ${baseY}px)`,
                     rotate: rotation,
                     scale,
-                    opacity: Math.max(opacity, 0.25),
                   }}
                   transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                  whileHover={!isActive ? { scale: scale + 0.04, opacity: Math.min(opacity + 0.2, 1) } : undefined}
+                  whileHover={!isActive ? { scale: scale + 0.04 } : undefined}
                 >
                   <Image
                     src={track.coverImage}
                     alt={`${track.title} cover`}
                     fill
-                    className="object-cover"
+                    className="img-blur-load object-cover"
                     sizes="300px"
+                    onLoad={(e) => e.currentTarget.classList.add('loaded')}
                   />
                   {/* Active overlay */}
                   {isActive && (
-                    <div
-                      className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-200 hover:bg-black/30"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handlePlay()
-                      }}
-                    >
-                      <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 ${isPlaying ? 'scale-100 opacity-100' : 'scale-100 opacity-70 group-hover:opacity-100'}`}>
+                  <div
+                    className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-200 hover:bg-black/30"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handlePlay()
+                    }}
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-[#1f130d] shadow-lg transition-all duration-200 hover:scale-110">
                         {isPlaying ? (
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <rect x="5" y="3" width="4" height="14" rx="1" />
