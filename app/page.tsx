@@ -2,6 +2,7 @@ import { AboutSection } from '@/components/AboutSection'
 import { AudioPlayer } from '@/components/AudioPlayer'
 import { AudioPlayerProvider } from '@/lib/audio-store'
 import { ContactSection } from '@/components/ContactSection'
+import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { ScrollFade } from '@/components/ScrollFade'
@@ -52,6 +53,7 @@ export default function HomePage() {
           <ContactSection artist={artist} />
         </ScrollFade>
       </main>
+      <Footer artist={artist} />
       <AudioPlayer />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(recordingsJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsJsonLd) }} />

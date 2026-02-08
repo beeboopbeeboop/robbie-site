@@ -39,11 +39,11 @@ export function AboutSection({ artist }: { artist: ArtistContent }) {
             </p>
           ))}
           {artist.pressQuotes[0] && (
-            <blockquote className="mt-6 border-l-2 border-[var(--accent)]/40 pl-4">
-              <p className="text-lg italic text-[var(--fg)]/90">
+            <blockquote className="mt-8 rounded-xl border border-[var(--border)] bg-[var(--card)]/50 px-6 py-5">
+              <p className="text-xl font-medium italic leading-relaxed text-[var(--fg)]">
                 &ldquo;{artist.pressQuotes[0].quote}&rdquo;
               </p>
-              <cite className="mt-1 block text-xs not-italic text-[var(--muted)]">
+              <cite className="mt-3 block text-sm not-italic text-[var(--accent)]">
                 — {artist.pressQuotes[0].source}
               </cite>
             </blockquote>

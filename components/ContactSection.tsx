@@ -124,10 +124,6 @@ export function ContactSection({ artist }: { artist: ArtistContent }) {
           </motion.div>
         </div>
 
-        {/* Copyright */}
-        <motion.p className="mt-8 text-center text-xs text-[var(--muted)]" variants={itemVariants}>
-          &copy; {new Date().getFullYear()} {artist.name}. All rights reserved.
-        </motion.p>
       </div>
     </Section>
   )

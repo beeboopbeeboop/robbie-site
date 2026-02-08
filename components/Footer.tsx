@@ -1,5 +1,14 @@
 import type { ArtistContent } from '@/lib/types'
 
+const socialLabels: Record<string, string> = {
+  instagram: 'Instagram',
+  tiktok: 'TikTok',
+  youtube: 'YouTube',
+  spotify: 'Spotify',
+  appleMusic: 'Apple Music',
+  bandcamp: 'Bandcamp',
+}
+
 export function Footer({ artist }: { artist: ArtistContent }) {
   const year = new Date().getFullYear()
   const allLinks = Object.entries(artist.socials).filter(([, value]) => value)
@@ -19,7 +28,7 @@ export function Footer({ artist }: { artist: ArtistContent }) {
             rel="noreferrer"
             className="text-[var(--muted)] transition hover:text-[var(--accent)]"
           >
-            {key}
+            {socialLabels[key] || key}
           </a>
         ))}
       </div>
